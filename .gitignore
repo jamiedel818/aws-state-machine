@@ -1,5 +1,6 @@
 # Chalice
 lambdas/.chalice
+lambdas/chalicelib
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
