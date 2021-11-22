@@ -1,0 +1,51 @@
+{
+    "Comment": "A simple state machine example calculator",
+    "StartAt": "ProcessOperation",
+    "States": {
+        "ProcessOperation": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.operation",
+                    "StringEquals": "addition",
+                    "Next": "addition"
+                },
+                {
+                    "Variable": "$.operation",
+                    "StringEquals": "subtraction",
+                    "Next": "subtraction"
+                },
+                {
+                    "Variable": "$.operation",
+                    "StringEquals": "multiplication",
+                    "Next": "multiplication"
+                },
+                {
+                    "Variable": "$.operation",
+                    "StringEquals": "division",
+                    "Next": "division"
+                }
+            ]
+        },
+        "addition": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:my-addition-lambda-arn",
+            "End": true
+        },
+        "subtraction": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:my-subtraction-lambda-arn",
+            "End": true
+        },
+        "multiplication": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:my-multiplication-lambda-arn",
+            "End": true
+        },
+        "division": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:my-division-lambda-arn",
+            "End": true
+        }
+    }
+}
