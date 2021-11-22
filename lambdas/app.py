@@ -1,7 +1,10 @@
+import random
+import json
+import boto3
 from chalice import Chalice
 from chalicelib.credentials import lambda_invoker_arn
-import uuid
-import json
+from botocore.exceptions import ClientError
+
 
 '''
 Sample Event
@@ -57,12 +60,12 @@ def division(event, context):
 def step_function_invoker():
     client = boto3.client('stepfunctions')
 
-    function_input = app.current_request.json_body
+    function_input = json.dumps(app.current_request.json_body)
 
     try:
         step_function = client.start_execution(
             stateMachineArn=f'{lambda_invoker_arn}',
-            name=str(uuid.uuid4()),
+            name=f'invocation-{random.randint(1000, 9999)}',
             input=function_input
         )
     
@@ -70,7 +73,7 @@ def step_function_invoker():
         return json.dumps(
             {
                 'Status Code': 500,
-                'message':f'Step function invokation failed: {e}'
+                'message':f'Step function invocation failed: {e}'
             }
         )
 
@@ -82,5 +85,5 @@ def step_function_invoker():
     ) 
     
 '''
-curl -X POST https://l8qr9eh8b0.execute-api.us-east-2.amazonaws.com/api/invoke -d '{"hello": "custer"}'
+curl -X POST  https://l8qr9eh8b0.execute-api.us-east-2.amazonaws.com/api/invoke -d '{"operation": "addition", "data": {"x":5, "y":5}}' -H "Content-Type: application/json" 
 '''
