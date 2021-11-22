@@ -83,7 +83,4 @@ def step_function_invoker():
             'Response': f'{step_function}'
         }
     ) 
-    
-'''
-curl -X POST  https://l8qr9eh8b0.execute-api.us-east-2.amazonaws.com/api/invoke -d '{"operation": "addition", "data": {"x":5, "y":5}}' -H "Content-Type: application/json" 
-'''
+
