@@ -83,5 +83,3 @@ def step_function_invoker():
             'Response': f'{step_function}'
         }
     ) 
-
-# this is keegans comment
